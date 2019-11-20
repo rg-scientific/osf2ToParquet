@@ -4,11 +4,13 @@ import argparse
 if __name__ == '__main__':
     # argument parsing
     parser = argparse.ArgumentParser()
-    parser.add_argument('--path', help='filepath')
+    parser.add_argument('--inpath', help='inpath')
+    parser.add_argument('--outpath', help='outpath')
     args = parser.parse_args()
 
     # get filenames
-    folders = os.listdir(args.path)
+    folders = os.listdir(args.inpath)
 
     for folder in folders:
-        os.system('C:/nonBKU/python/python.exe D:/kmeans_earth_fault/createDayfile.py --path ' + args.path + '/' + folder)
+        #print('python3 createDayfile.py --inpath ' + ''.join([args.inpath, folder]) + ' --outpath ' + args.outpath)
+        os.system('python3 createDayfile.py --inpath ' + '/'.join([args.inpath, folder]) + ' --outpath ' + args.outpath)
