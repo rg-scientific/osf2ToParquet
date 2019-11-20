@@ -12,5 +12,4 @@ if __name__ == '__main__':
     folders = os.listdir(args.inpath)
 
     for folder in folders:
-        #print('python3 createDayfile.py --inpath ' + ''.join([args.inpath, folder]) + ' --outpath ' + args.outpath)
-        os.system('python3 createDayfile.py --inpath ' + '/'.join([args.inpath, folder]) + ' --outpath ' + args.outpath)
+        os.system('python3 createDayfile.py --inpath ' + ''.join([args.inpath, folder]) + ' --outpath ' + args.outpath)

@@ -126,19 +126,20 @@ def resampleMergeAndSaveAsParquet(Min_01_merged, Max_01_merged, RMS_01_merged, M
     merged =pd.concat(objs, axis=1, join='outer', ignore_index=False).interpolate(method='linear', limit_direction ='both')
     merged.reset_index(drop=False, inplace=True)
     merged.rename(columns={'utc': 'time'}, inplace=True)
-    merged.to_parquet(outpath + '/' + fnoutfile + '.parquet', engine='pyarrow')
+    merged.to_parquet(args.outpath + fnoutfile + '.parquet', engine='pyarrow')
 
 if __name__ == '__main__':
     # argument parsing
     parser = argparse.ArgumentParser()
-    parser.add_argument('--path', help='filepath')
+    parser.add_argument('--inpath', help='inpath')
+    parser.add_argument('--outpath', help='outpath')
     args = parser.parse_args()
 
     # get filenames
-    files = os.listdir(args.path)
+    files = os.listdir(args.inpath)
     files_osf = [i for i in files if i.endswith('.osf')]
-    fnoutfile = str(args.path).split('/')[-1]
-    outpath = '/'.join(map(str, str(args.path).split('/')[:-1]))
-    Min_01_merged, Max_01_merged, RMS_01_merged, Min_02_merged, Max_02_merged, RMS_02_merged = createDayframes(args.path, files_osf)
+    fnoutfile = str(args.inpath).split('/')[-1]
+    #outpath = '/'.join(map(str, str(args.path).split('/')[:-1]))
+    Min_01_merged, Max_01_merged, RMS_01_merged, Min_02_merged, Max_02_merged, RMS_02_merged = createDayframes(args.inpath, files_osf)
     resampleMergeAndSaveAsParquet(Min_01_merged, Max_01_merged, RMS_01_merged, Min_02_merged, Max_02_merged, RMS_02_merged)
 
